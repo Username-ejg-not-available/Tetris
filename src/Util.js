@@ -5,5 +5,6 @@ Shape = {
   J: '#0000fd',
   T: '#9101fe',
   S: '#00ff01',
-  Z: '#ff0100'
+  Z: '#ff0100',
+  Empty: '#ffffff'
 }
