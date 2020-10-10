@@ -1,14 +1,22 @@
+/**
+ * Gameplay related board functions
+ */
 
 class Board {
+  /**
+   * Creates starting pieces
+   */
   constructor() {
     this.currentPiece = this.randomPiece()
     this.heldPiece = null
     this.nextPiece = new Array(4).fill(null).map(x => x = this.randomPiece())
-    this.canHold = true
     this.score = 0
     this.placeCurrent()
   }
 
+  /**
+   * Places current piece on screen, or ends game if it cant be placed
+   */
   placeCurrent() {
     for (let c of this.currentPiece.coords) {
       if (getCellColor('board', c[0],c[1]) !== Shape.Empty) {
@@ -21,8 +29,10 @@ class Board {
     }
   }
 
+  /**
+   * Stores current piece and replaces it with appropriate piece
+   */
   swapHeld() {
-    if (!this.canHold) return
     this.currentPiece.coords.forEach(x => setCellColor('board', x[0],x[1], Shape.Empty))
     if (this.heldPiece !== null) {
       const temp = clone(this.heldPiece)
@@ -34,9 +44,13 @@ class Board {
       this.currentPiece = this.nextPiece.shift()
       this.nextPiece.push(this.randomPiece())
     }
+    this.heldPiece.coords = clone(this.heldPiece.origCoords)
     this.placeCurrent()
   }
 
+  /**
+   * Checks if piece can be moved down, and if so, it moves it down
+   */
   moveDownCurrent() {
     let tempPiece = clone(this.currentPiece.coords).map(x => [x[0] + 1, x[1]])
     this.currentPiece.coords.forEach(x => setCellColor('board', x[0],x[1], Shape.Empty))
@@ -50,10 +64,12 @@ class Board {
       return
     }
     tempPiece.forEach(x => setCellColor('board', x[0],x[1], this.currentPiece.shape))
-    this.canHold = false
     this.currentPiece.moveDown()
   }
 
+  /**
+   * Checks if piece can be moved left, and if so, it moves it left
+   */
   moveLeftCurrent() {
     let tempPiece = clone(this.currentPiece.coords).map(x => [x[0], x[1] - 1])
     this.currentPiece.coords.forEach(x => setCellColor('board', x[0],x[1], Shape.Empty))
@@ -62,10 +78,12 @@ class Board {
       return
     }
     tempPiece.forEach(x => setCellColor('board', x[0],x[1], this.currentPiece.shape))
-    this.canHold = false
     this.currentPiece.moveLeft()
   }
 
+  /**
+   * Checks if piece can be moved right, and if so, it moves it right
+   */
   moveRightCurrent() {
     let tempPiece = clone(this.currentPiece.coords).map(x => [x[0], x[1] + 1])
     this.currentPiece.coords.forEach(x => setCellColor('board', x[0],x[1], Shape.Empty))
@@ -74,10 +92,12 @@ class Board {
       return
     }
     tempPiece.forEach(x => setCellColor('board', x[0],x[1], this.currentPiece.shape))
-    this.canHold = false
     this.currentPiece.moveRight()
   }
 
+  /**
+   * Checks if piece can be rotated, and if so, it rotates it
+   */
   rotateCurrent() {
     let tempPiece = clone(this.currentPiece)
     tempPiece.rotate()
@@ -87,10 +107,12 @@ class Board {
       return
     }
     tempPiece.coords.forEach(x => setCellColor('board', x[0],x[1], this.currentPiece.shape))
-    this.canHold = false
     this.currentPiece.rotate()
   }
 
+  /**
+   * Checks for completed rows, gives points, and removes completed rows
+   */
   checkForTet() {
     let completeRows = []
     for (let i = 0; i < 20; i++) {
@@ -106,6 +128,9 @@ class Board {
     set_text('#score', `Score: ${this.score}`)
   }
 
+  /**
+   * Removes all completed rows
+   */
   shiftDown(row) {
     for (let i = row; i > -1; i--) {
       if (!i) displays['board'][i].fill(Shape.Empty)
@@ -115,6 +140,10 @@ class Board {
     }
   }
 
+  /**
+   * Creates new instance of random piece
+   * @return {Piece}
+   */
   randomPiece() {
     const pieces = [I,O,L,J,T,S,Z]
     return new pieces[Math.floor(Math.random() * 7)]()
