@@ -3,7 +3,14 @@
 * because it only updates on player input
 */
 
+displays = {}
+
 function constructDisplay() {
+  displays['board'] = new Array(20).fill([]).map(x => x = new Array(10).fill(Shape.Empty))
+  displays['held'] = new Array(4).fill([]).map(x => x = new Array(4).fill(Shape.Empty))
+  for (let k = 0; k < 4; k++) {
+    displays[`next${k}`] = new Array(4).fill([]).map(x => x = new Array(4).fill(Shape.Empty))
+  }
   push_child('#display', '<div id="held"></div>')
   set_color('#held', '#d3d3d3')
   push_child('#held', '<p>Held</p>')
@@ -45,7 +52,7 @@ function constructDisplay() {
 function renderBoard() {
   for (let i = 0; i < 20; i++) {
     for (let j = 0; j < 10; j++) {
-      set_color(`#r${i}c${j}`, gameBoard.getCellColor(i,j))
+      set_color(`#r${i}c${j}`, getCellColor('board', i,j))
     }
   }
 }
@@ -54,18 +61,22 @@ function renderHeld() {
   if (gameBoard.heldPiece === null) return
   for (let i = 0; i < 4; i++) {
     for (let j = 0; j < 4; j++) {
-      gameBoard.heldArray[i][j] = Shape.Empty
-      set_color(`#heldr${i}c${j}`, Shape.Empty)
+      if (gameBoard.heldPiece.coords.includes([i,j + 3])) {
+        set_color(`#heldr${i}c${j}`, gameBoard.heldPiece.shape)
+      }
+      else {
+        console.log([i,j])
+        set_color(`#heldr${i}c${j}`, Shape.Empty)
+      }
     }
   }
-  gameBoard.heldPiece.coords.forEach(c => set_color(`#heldr${c[0]}c${c[1]-3}`, gameBoard.heldPiece.shape))
+  //gameBoard.heldPiece.coords.forEach(c => set_color(`#heldr${c[0]}c${c[1]-3}`, gameBoard.heldPiece.shape))
 }
 
 function renderNext() {
   for (let k = 0; k < 4; k++) {
     for (let i = 0; i < 4; i++) {
       for (let j = 0; j < 4; j++) {
-        gameBoard.heldArray[i][j] = Shape.Empty
         set_color(`#n${k}r${i}c${j}`, Shape.Empty)
       }
     }
@@ -85,6 +96,10 @@ function timer() {
   set_text('#time', `Time: ${time}s`)
   time += 1
   timeoutID = setTimeout(timer, 1000)
+  if (time != 1) {
+    gameBoard.moveDownCurrent()
+    if (!end) update()
+  }
 }
 
 function endScreen() {
@@ -93,4 +108,12 @@ function endScreen() {
   push_child('#end', `<p>Score: ${gameBoard.score}</p>`)
   push_child('#end', `<p>Time: ${time}s</p>`)
   push_child('#end', `<button onclick='window.location.reload()'>Play Again?</button>`)
+}
+
+function setCellColor(dis, row, col, color) {
+  displays[dis][row][col] = color
+}
+
+function getCellColor(dis, row,col) {
+  return displays[dis][row][col];
 }

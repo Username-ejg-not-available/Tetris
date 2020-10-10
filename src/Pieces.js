@@ -7,21 +7,15 @@ class Piece {
   }
 
   moveDown() {
-    for (let c of this.coords) {
-      c[0] += 1
-    }
+    this.coords.forEach(x => x[0] += 1)
   }
 
   moveLeft() {
-    for (let c of this.coords) {
-      c[1] -= 1
-    }
+    this.coords.forEach(x => x[1] -= 1)
   }
 
   moveRight() {
-    for (let c of this.coords) {
-      c[1] += 1
-    }
+    this.coords.forEach(x => x[1] += 1)
   }
 
   rotate() {
