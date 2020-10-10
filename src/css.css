@@ -1,6 +1,4 @@
-/* I purposely used as little css as possible
-  instead, I used js to apply styles for the sake of
-  'demonstrating my js knowledge' */
+/* */
 
 .cell {
   width: 25px;
@@ -39,4 +37,9 @@
   display: flex;
   justify-content: center;
   text-align: center;
+}
+
+#end {
+  min-height: 540px;
+  padding: 15px 15px 15px 0px;
 }

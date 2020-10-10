@@ -88,5 +88,9 @@ function timer() {
 }
 
 function endScreen() {
-  
+  push_child('#display', '<div id=\'end\'></div>')
+  set_color('#end', '#d3d3d3')
+  push_child('#end', `<p>Score: ${gameBoard.score}</p>`)
+  push_child('#end', `<p>Time: ${time}s</p>`)
+  push_child('#end', `<button onclick='window.location.reload()'>Play Again?</button>`)
 }

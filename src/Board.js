@@ -37,8 +37,8 @@ class Board {
       this.currentPiece = this.nextPiece.shift()
       this.nextPiece.push(this.randomPiece())
     }
-    this.placePiece(this.currentPiece)
     update()
+    this.placePiece(this.currentPiece)
   }
 
   moveDownCurrent() {
