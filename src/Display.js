@@ -1,4 +1,7 @@
-
+/**
+* I've personally never liked canvas, and Tetris is pretty easy to make without it
+* because it only updates on player input
+*/
 
 function constructDisplay() {
   push_child('#display', '<div id="held"></div>')
@@ -11,6 +14,8 @@ function constructDisplay() {
       set_color(`#heldr${i}c${j}`, Shape.Empty)
     }
   }
+  push_child('#held', `<br /><span id='time'>Time: 0s</span><br /><br />`)
+  push_child('#held', `<span id='score'>Score: 0</span><br />`)
 
   push_child('#display', '<div id=\'board\'></div>')
   set_color('#board', '#d3d3d3')
@@ -72,4 +77,16 @@ function update() {
   renderBoard()
   renderHeld()
   renderNext()
+}
+
+time = 0
+timeoutID = null
+function timer() {
+  set_text('#time', `Time: ${time}s`)
+  time += 1
+  timeoutID = setTimeout(timer, 1000)
+}
+
+function endScreen() {
+  
 }

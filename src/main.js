@@ -3,12 +3,23 @@
 function main() {
   constructDisplay()
   gameBoard = new Board()
+  timer()
   update()
+}
+
+function gameEnd() {
+  remove_element('#held')
+  remove_element('#nexts')
+  clearTimeout(timeoutID)
+  removeEventListener('keydown', keydown_fn)
+  endScreen()
 }
 
 window.addEventListener("DOMContentLoaded", e => main());
 
-window.addEventListener('keydown', e => {
+window.addEventListener('keydown', keydown_fn);
+
+function keydown_fn(e) {
   e.preventDefault()
   if (e.key === 'ArrowLeft') {
     gameBoard.moveLeftCurrent()
@@ -30,4 +41,4 @@ window.addEventListener('keydown', e => {
     gameBoard.rotateCurrent()
     update();
   }
-});
+}

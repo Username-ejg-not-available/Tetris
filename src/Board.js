@@ -8,12 +8,16 @@ class Board {
     this.heldPiece = null
     this.nextPiece = new Array(4).fill(null).map(x => x = this.randomPiece())
     this.canHold = true
+    this.score = 0
     this.placePiece(this.currentPiece)
   }
 
   placePiece(piece) {
     for (let c of piece.coords) {
-      if (this.getCellColor(c[0],c[1]) !== Shape.Empty) return
+      if (this.getCellColor(c[0],c[1]) !== Shape.Empty) {
+          gameEnd()
+          return
+      }
     }
     for (let c of piece.coords) {
       this.boardArray[c[0]][c[1]] = piece.shape
@@ -44,6 +48,7 @@ class Board {
       this.currentPiece.coords.forEach(x => this.setCellColor(x[0],x[1], this.currentPiece.shape))
       this.currentPiece = this.nextPiece.shift()
       this.nextPiece.push(this.randomPiece())
+      this.checkForTet()
       this.placePiece(this.currentPiece)
       this.canHold = true
       return
@@ -88,6 +93,30 @@ class Board {
     tempPiece.coords.forEach(x => this.setCellColor(x[0],x[1], this.currentPiece.shape))
     this.canHold = false
     this.currentPiece.rotate()
+  }
+
+  checkForTet() {
+    let completeRows = []
+    for (let i = 0; i < 20; i++) {
+      if (!this.boardArray[i].includes(Shape.Empty)) completeRows.push(i)
+    }
+    for (let r of completeRows) {
+      this.shiftDown(r)
+    }
+    if (completeRows.length === 1) this.score += 100
+    else if (completeRows.length === 2) this.score += 300
+    else if (completeRows.length === 3) this.score += 500
+    else if (completeRows.length === 4) this.score += 800
+    set_text('#score', `Score: ${this.score}`)
+  }
+
+  shiftDown(row) {
+    for (let i = row; i > -1; i--) {
+      if (!i) this.boardArray[i].fill(Shape.Empty)
+      else {
+        this.boardArray[i] = clone(this.boardArray[i - 1])
+      }
+    }
   }
 
   randomPiece() {

@@ -4,16 +4,15 @@ push_child = function(element, newChild) {
 }
 
 remove_element = function(element) {
-	document.querySelector(element).outerText = ""
+	document.querySelector(element).outerHTML = ""
 }
 
 get_element = function(element) {
 	return document.querySelectorAll(element)
 }
 
-set_size = function(element, width = -1, height = -1) {
-	if (width > -1) document.querySelector(element).style.width = width
-	if (height > -1) document.querySelector(element).style.height = height
+set_text = function(element, text) {
+	document.querySelector(element).innerText = text
 }
 
 set_color = function(element, color) {
