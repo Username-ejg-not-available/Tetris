@@ -1,10 +1,42 @@
+/* I purposely used as little css as possible
+  instead, I used js to apply styles for the sake of
+  'demonstrating my js knowledge' */
+
 .cell {
-  width: 30px;
-  height: 30px;
+  width: 25px;
+  height: 25px;
   border: 1px solid black;
 }
 
 .row {
   display: flex;
   justify-content: center;
+}
+
+.next {
+  padding: 5px 0px;
+}
+
+#board {
+  max-width: 250px;
+  max-height: 540px;
+  padding: 20px 0px;
+}
+
+#held {
+  max-width: 100px;
+  min-height: 540px;
+  padding: 15px;
+}
+
+#nexts {
+  max-width: 100px;
+  min-height: 540px;
+  padding: 15px;
+}
+
+#display {
+  display: flex;
+  justify-content: center;
+  text-align: center;
 }

@@ -13,7 +13,7 @@ get_element = function(element) {
 
 set_size = function(element, width = -1, height = -1) {
 	if (width > -1) document.querySelector(element).style.width = width
-	if (height > -1 )document.querySelector(element).style.height = height
+	if (height > -1) document.querySelector(element).style.height = height
 }
 
 set_color = function(element, color) {

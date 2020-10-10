@@ -1,29 +1,33 @@
 
 
 function main() {
-  constructBoard()
+  constructDisplay()
+  gameBoard = new Board()
+  update()
 }
 
-function constructBoard() {
-  push_child('body', '<div id=\'board\'></div>')
-  for (let i = 0; i < 20; i++) {
-    push_child('#board', `<div id='row${i}' class='row'></div>`)
-    for (let j = 0; j < 10; j++) {
-      push_child(`#row${i}`, `<div id='r${i}c${j}' class='cell'></div>`);
-    }
-  }
-}
+window.addEventListener("DOMContentLoaded", e => main());
 
-function clearboard() {
-  for (let i = 0; i < 20; i++) {
-    for (let j = 0; j < 10; j++) {
-      set_color('#r'+i+'c'+j, Shape.Empty)
-    }
+window.addEventListener('keydown', e => {
+  e.preventDefault()
+  if (e.key === 'ArrowLeft') {
+    gameBoard.moveLeftCurrent()
+    update();
   }
-}
-
-function draw(piece) {
-  for (let c of piece.coords) {
-    set_color('#r' + c[0] + 'c' + c[1], piece.shape)
+  else if (e.key === 'ArrowRight') {
+    gameBoard.moveRightCurrent()
+    update();
   }
-}
+  else if (e.key === 'ArrowDown') {
+    gameBoard.moveDownCurrent()
+    update();
+  }
+  else if (e.key === 'ArrowUp') {
+    gameBoard.swapHeld()
+    update()
+  }
+  else if (e.key === ' ') {
+    gameBoard.rotateCurrent()
+    update();
+  }
+});
