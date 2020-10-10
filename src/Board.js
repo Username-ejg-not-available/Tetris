@@ -45,6 +45,7 @@ class Board {
       this.nextPiece.push(this.randomPiece())
     }
     this.heldPiece.coords = clone(this.heldPiece.origCoords)
+    this.heldPiece.rotationIndex = 0
     this.placeCurrent()
   }
 
