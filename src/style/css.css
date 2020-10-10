@@ -1,0 +1,45 @@
+/* */
+
+.cell {
+  width: 25px;
+  height: 25px;
+  border: 1px solid black;
+}
+
+.row {
+  display: flex;
+  justify-content: center;
+}
+
+.next {
+  padding: 5px 0px;
+}
+
+#board {
+  max-width: 250px;
+  max-height: 540px;
+  padding: 20px 15px;
+}
+
+#held {
+  max-width: 100px;
+  min-height: 540px;
+  padding: 15px 0px 15px 15px;
+}
+
+#nexts {
+  max-width: 100px;
+  min-height: 540px;
+  padding: 15px 15px 15px 0px;
+}
+
+#display {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+
+#end {
+  min-height: 540px;
+  padding: 15px 15px 15px 0px;
+}
