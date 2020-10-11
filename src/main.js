@@ -37,7 +37,7 @@ window.addEventListener('keydown', keydown_fn);
  * Calls appropriate functions for key presses
  */
 function keydown_fn(e) {
-  e.preventDefault()
+  if (e.key != 'F12') e.preventDefault()
   if (e.key === 'ArrowLeft') {
     gameBoard.moveLeftCurrent()
   }

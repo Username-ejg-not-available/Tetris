@@ -115,15 +115,17 @@ function timer() {
   set_text('#time', `Time: ${time}s`)
   time += 1
   timeoutID = setTimeout(timer, 1000)
+  if (!(time % 10)) rate += .05
 }
 
+/** Alters speed that pieces drop */
 rate = 1
 
+/** Used to disable drop timer*/
 autoTimeOutID = null
 
 function autoMove() {
   timeoutID = setTimeout(autoMove, Math.floor(1000 / rate))
-  if (!(time % 10)) rate += .05
   if (time != 1) {
     gameBoard.moveDownCurrent()
     if (!end) update()
