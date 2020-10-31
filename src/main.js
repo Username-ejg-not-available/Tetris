@@ -1,4 +1,5 @@
 /**
+ * @author Ethan Grantz
  * Game state and player interaction handling
  */
 
@@ -40,18 +41,22 @@ function keydown_fn(e) {
   if (e.key != 'F12' && e.key != 'F5') e.preventDefault()
   if (e.key === 'ArrowLeft') {
     gameBoard.moveLeftCurrent()
+    if (!end) update()
   }
   else if (e.key === 'ArrowRight') {
     gameBoard.moveRightCurrent()
+    if (!end) update()
   }
   else if (e.key === 'ArrowDown') {
     gameBoard.moveDownCurrent()
+    if (!end) update()
   }
   else if (e.key === 'ArrowUp') {
     gameBoard.swapHeld()
+    if (!end) update()
   }
   else if (e.key === ' ') {
     gameBoard.rotateCurrent()
+    if (!end) update()
   }
-  if (!end) update()
 }

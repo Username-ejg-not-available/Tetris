@@ -1,4 +1,5 @@
 /**
+ * @author Ethan Grantz
  * Templates for the 7 types of pieces
  */
 

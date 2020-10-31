@@ -1,8 +1,8 @@
 /**
-* Graphics related board functions
-* I've personally never liked canvas, and Tetris is pretty easy to make without it
-* because it only updates on player input
-*/
+ * @author Ethan Grantz
+ * Graphics related board functions
+ * Made without canvas because the grid structure is really easy without it
+ */
 
 /**
  * Mapping of display name -> array of display colors

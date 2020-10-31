@@ -1,4 +1,5 @@
 /**
+ * @author Ethan Grantz
  * DOM Interaction functions to make the rest of the js look less ugly
  */
 

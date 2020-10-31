@@ -1,4 +1,5 @@
 /**
+ * @author Ethan Grantz
  * Anything that I deem to be a 'Utility' that any function of class might use
  */
 

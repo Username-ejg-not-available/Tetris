@@ -1,4 +1,5 @@
 /**
+ * @author Ethan Grantz
  * Gameplay related board functions
  */
 
@@ -122,10 +123,8 @@ class Board {
     for (let r of completeRows) {
       this.shiftDown(r)
     }
-    if (completeRows.length === 1) this.score += 100
-    else if (completeRows.length === 2) this.score += 300
-    else if (completeRows.length === 3) this.score += 500
-    else if (completeRows.length === 4) this.score += 800
+    //update score
+    this.score += completeRows.length
     set_text('#score', `Score: ${this.score}`)
   }
 
@@ -134,7 +133,9 @@ class Board {
    */
   shiftDown(row) {
     for (let i = row; i > -1; i--) {
+      //top row gets set to white
       if (!i) displays['board'][i].fill(Shape.Empty)
+      //other rows get set to the row above them
       else {
         displays['board'][i] = clone(displays['board'][i - 1])
       }
