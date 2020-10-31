@@ -13,7 +13,7 @@ displays = {}
  * Creates the visible displays for gameplay
  */
 function constructDisplay() {
-  displays['board'] = new Array(20).fill([]).map(x => x = new Array(10).fill(Shape.Empty))
+  displays['board'] = new Array(23).fill([]).map(x => x = new Array(10).fill(Shape.Empty))
   displays['held'] = new Array(4).fill([]).map(x => x = new Array(4).fill(Shape.Empty))
   for (let k = 0; k < 4; k++) {
     displays[`next${k}`] = new Array(4).fill([]).map(x => x = new Array(4).fill(Shape.Empty))
@@ -33,7 +33,7 @@ function constructDisplay() {
 
   push_child('#display', '<div id=\'board\'></div>')
   set_color('#board', '#d3d3d3')
-  for (let i = 0; i < 20; i++) {
+  for (let i = 3; i < 23; i++) {
     push_child('#board', `<div id='row${i}' class='row'></div>`)
     for (let j = 0; j < 10; j++) {
       push_child(`#row${i}`, `<div id='r${i}c${j}' class='cell'></div>`);
@@ -60,7 +60,7 @@ function constructDisplay() {
  * Updates main board graphics
  */
 function renderBoard() {
-  for (let i = 0; i < 20; i++) {
+  for (let i = 3; i < 23; i++) {
     for (let j = 0; j < 10; j++) {
       set_color(`#r${i}c${j}`, getCellColor('board', i,j))
     }

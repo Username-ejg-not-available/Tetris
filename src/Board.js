@@ -56,7 +56,7 @@ class Board {
   moveDownCurrent() {
     let tempPiece = clone(this.currentPiece.coords).map(x => [x[0] + 1, x[1]])
     this.currentPiece.coords.forEach(x => setCellColor('board', x[0],x[1], Shape.Empty))
-    if (tempPiece.some(x => x[0] > 19 || getCellColor('board', x[0], x[1]) !== Shape.Empty)) {
+    if (tempPiece.some(x => x[0] > 22 || getCellColor('board', x[0], x[1]) !== Shape.Empty)) {
       this.currentPiece.coords.forEach(x => setCellColor('board', x[0],x[1], this.currentPiece.shape))
       this.currentPiece = this.nextPiece.shift()
       this.nextPiece.push(this.randomPiece())
