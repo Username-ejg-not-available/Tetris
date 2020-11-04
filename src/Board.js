@@ -20,12 +20,6 @@ class Board {
    */
   placeCurrent() {
     for (let c of this.currentPiece.coords) {
-      if (getCellColor('board', c[0],c[1]) !== Shape.Empty) {
-          gameEnd()
-          return
-      }
-    }
-    for (let c of this.currentPiece.coords) {
       setCellColor('board', c[0], c[1], this.currentPiece.shape)
     }
   }
@@ -57,6 +51,11 @@ class Board {
     let tempPiece = clone(this.currentPiece.coords).map(x => [x[0] + 1, x[1]])
     this.currentPiece.coords.forEach(x => setCellColor('board', x[0],x[1], Shape.Empty))
     if (tempPiece.some(x => x[0] > 22 || getCellColor('board', x[0], x[1]) !== Shape.Empty)) {
+      //check if the current piece is above upper bound
+      if (this.currentPiece.coords.some(x => x[0] < 3)) {
+        gameEnd()
+        return
+      }
       this.currentPiece.coords.forEach(x => setCellColor('board', x[0],x[1], this.currentPiece.shape))
       this.currentPiece = this.nextPiece.shift()
       this.nextPiece.push(this.randomPiece())
